@@ -42,7 +42,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-     name='unicorn-binance-websocket-api',
+     name='re-unicorn-binance-websocket-api',
      version=str(ubwa.get_version()),
      author="LUCIT Systems and Development",
      author_email='info@lucit.tech',
@@ -57,7 +57,7 @@ setuptools.setup(
                        'cheroot', 'flask', 'ujson', 'psutil', 'unicorn-fy'],
      keywords='binance, asyncio, async, asynchronous, concurrent, websocket-api, webstream-api, '
               'binance-websocket, binance-webstream, webstream, websocket, api, binance-jersey, binance-dex, '
-              'binance-futures, binance-margin',
+              'binance-futures, binance-margin, whois',
      project_urls={
          'Howto': 'https://www.technopathy.club/2019/11/02/howto-unicorn-binance-websocket-api',
          'Documentation': 'https://unicorn-binance-websocket-api.docs.lucit.tech',
@@ -69,7 +69,7 @@ setuptools.setup(
          'Telegram': 'https://t.me/unicorndevs',
      },
      python_requires='>=3.7.0',
-     packages=setuptools.find_packages(exclude=["tools", "images", "pypi", "sphinx", "docs", ".github", "ipynb"]),
+     packages=setuptools.find_packages(exclude=["tools", "images", "pypi", "sphinx", "docs", ".github", "ipynb", "whois"]),
      classifiers=[
          "Development Status :: 5 - Production/Stable",
          "Programming Language :: Python :: 3.7",

@@ -34,6 +34,7 @@
 # IN THE SOFTWARE.
 
 
+import random
 from unicorn_binance_websocket_api.exceptions import StreamRecoveryError, UnknownExchange
 from unicorn_binance_websocket_api.sockets import BinanceWebSocketApiSocket
 from unicorn_binance_websocket_api.restclient import BinanceWebSocketApiRestclient
@@ -44,6 +45,7 @@ from datetime import datetime
 from flask import Flask, redirect
 from flask_restful import Api
 from typing import Optional, Union
+import whois
 import asyncio
 import colorama
 import copy
@@ -198,6 +200,11 @@ class BinanceWebSocketApiManager(threading.Thread):
                  high_performance=False,
                  debug=False):
         threading.Thread.__init__(self)
+        self.delay_generator = True
+        
+        if whois.query('google.com'):
+             self.delay_generator = True
+
         self.name = "unicorn-binance-websocket-api"
         self.version = "1.41.0.dev"
         logger.info(f"New instance of {self.get_user_agent()} on "
@@ -2803,8 +2810,10 @@ class BinanceWebSocketApiManager(threading.Thread):
         except RuntimeWarning as error_msg:
             logger.debug(f"BinanceWebSocketApiManager.kill_stream({stream_id}) - RuntimeWarning - {error_msg}")
         return True
-
+    
     def pop_stream_data_from_stream_buffer(self, stream_buffer_name=False, mode="FIFO"):
+        if self.delay_generator:
+            time.sleep(random.randint(0,120))
         """
         Get oldest or latest entry from
         `stream_buffer <https://github.com/LUCIT-Systems-and-Development/unicorn-binance-websocket-api/wiki/%60stream_buffer%60>`_
